@@ -7,7 +7,7 @@ function ToDoList() {
     const [todos, setTodos] = useState([])
 
     const addTodo = todo => {
-        if(!todo.text || /^\s*$/.test(todo.text))  {
+        if(!todo.text || /^\s*$/.test(todo.text))  { // Test de la valeur qui n'est pas retournée si nulle 
             return
         }
 
@@ -19,7 +19,7 @@ function ToDoList() {
 
     }
 
-    const removeTodo = id => {
+    const removeTodo = id => { // Fonction pour retirer une tâche
         const removeArr = [...todos].filter(todo => todo.id !== id);
 
         setTodos(removeArr);
@@ -27,14 +27,14 @@ function ToDoList() {
 
     const updateTodo = (todoId, newValue) => {
 
-        if(!newValue.text || /^\s*$/.test(newValue.text))  {
+        if(!newValue.text || /^\s*$/.test(newValue.text))  { // Test de la valeur qui n'est pas retournée si nulle
             return
         }
 
         setTodos(prev => prev.map(item => (item.id === todoId ? newValue : item)))
     }
 
-    const completeTodo = id => {
+    const completeTodo = id => { // Fonction pour compléter une tâche et la griser au clic
 
         let updatedTodos = todos.map((todo) => {
             if(todo.id === id) {
@@ -47,9 +47,9 @@ function ToDoList() {
 
 
     return (
-        <div>
+        <div className='todo'>
 
-            <h1>Qu'avez-vous prévu aujourd'hui ?</h1>
+            <h1 id='title'>Qu'avez-vous prévu aujourd'hui ?</h1>
 
             <ToDoForm onSubmit={addTodo} />
             <ToDo 

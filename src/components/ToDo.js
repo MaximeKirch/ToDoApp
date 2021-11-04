@@ -6,12 +6,12 @@ import {TiEdit} from 'react-icons/ti'
 
 function ToDo({todos, completeTodo, removeTodo, updateTodo}) {
 
-    const [edit, setEdit] = useState({
+    const [edit, setEdit] = useState({ // Valeur de la modification
         id: null,
         value:''
     });
 
-    const submitUpdate = value => {
+    const submitUpdate = value => { // Fonction pour modifier l'entrée 
         updateTodo(edit.id, value)
        
         setEdit({
@@ -29,11 +29,11 @@ function ToDo({todos, completeTodo, removeTodo, updateTodo}) {
         return(
         
         <div 
-            className={todo.isComplete ? 'todo-row complete' : 'todo-row'} 
+            className={todo.isComplete ? 'todo-row-complete' : 'todo-row'} 
             key={index}
         >
 
-            <div key={todo.id} onClick={() => completeTodo(todo.id)}>
+            <div className='todo-text' key={todo.id} onClick={() => completeTodo(todo.id)}>
                 {todo.text}
             </div>
 

@@ -2,28 +2,27 @@ import React, {useState, useEffect, useRef} from 'react'
 
 
 // Input qui récupère les entrées
-// Array qui stocke les listes
-// Renvoyer la liste en JSX
-// Bouton qui grise l'activité quand elle est remplie
+// Stocker les tâches et les afficher en .map()
+// Griser l'activité quand elle est complétée ( au clic)
 
 
 
 
 export default function ToDoForm(props) {
 
-    const [input, setInput] = useState('');
+    const [input, setInput] = useState(props.edit ? props.edit.value : '');
 
     const inputRef = useRef(null);
 
     useEffect(() => {
-        inputRef.current.focus()
+        inputRef.current.focus() // Récupère une valeur modifiable 
     })
 
-    const handleChange = e => {
+    const handleChange = e => { // Récupère l'input de l'utilisateur
         setInput(e.target.value);
     };
  
-    const handleSubmit = e => {
+    const handleSubmit = e => { // Stocke l'input avec un ID aléatoire
         e.preventDefault();
 
         props.onSubmit({
@@ -42,10 +41,30 @@ export default function ToDoForm(props) {
         <div>
             <form className='todo-form'
                     onSubmit={handleSubmit}>
+                {props.edit ? (  // Si la modale edit est ouverte alors on renvoie une nouvelle fenêtre d'input
 
+                <>
                 <input 
                     type='text' 
-                    placeholder='Ajoutez une tâche' 
+                    placeholder='Modifiez votre tâche' 
+                    value={input} 
+                    name='text' 
+                    className='todo-input edit'
+                    onChange={handleChange}
+                    ref={inputRef}
+                    autoComplete='off'
+                />
+
+                <button className='todo-button edit'>Modifier</button>
+
+                </>
+                ) : (
+
+
+                <>
+                <input 
+                    type='text' 
+                    placeholder='Ajouter une tâche' 
                     value={input} 
                     name='text' 
                     className='todo-input'
@@ -54,6 +73,12 @@ export default function ToDoForm(props) {
                 />
 
                 <button className='todo-button'>Ajouter</button>
+
+                </>
+                
+                )}
+
+            
             </form>
             
         </div>
